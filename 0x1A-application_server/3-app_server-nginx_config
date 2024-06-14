@@ -1,0 +1,24 @@
+server {
+        listen 80;
+        server_name 127.0.0.1 54.208.120.231;
+
+        location /airbnb-onepage/ {
+                include proxy_params;
+                proxy_pass http://localhost:5000;
+        }
+
+        location /airbnb-dynamic/number_odd_or_even/ {
+                include proxy_params;
+                proxy_pass http://localhost:5001/number_odd_or_even/;
+        }
+
+        add_header X-Served-By $hostname;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
